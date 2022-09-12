@@ -20,6 +20,7 @@ function App() {
 
   const { user, dispatch } = useContext(AuthContext)
   const [token, setToken] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
   useEffect(() => {
@@ -29,31 +30,55 @@ function App() {
 
     if (localStorage.getItem("token") !== null) {
       loginToken(dispatch)
+      setIsLoggedIn(true)
     }
     else {
       console.log("undefined")
     }
   }, [dispatch])
 
-
+  console.log(isLoggedIn)
+  console.log("object: " + isLoggedIn ? "aaa" : "bbb")
 
 
   return (
-    <BrowserRouter>
-      <Routes>
 
-        <Route path="/" element={user ? <Home /> : <Register />} />
+    isLoggedIn ?
+      (
+        <BrowserRouter>
+          <Routes>
 
-        <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+            <Route path="/" element={<Home />} />
 
-        <Route path="/register" element={user ? <Navigate to="/" /> : <Register />} />
+            <Route path="/login" element={<Home />} />
 
-        <Route path="/messenger" element={!user ? <Navigate to="/" /> : <Messenger />} />
+            <Route path="/register" element={<Home />} />
 
-        <Route path="/profile/:username" element={<Profile />} />
+            <Route path="/messenger" element={<Messenger />} />
 
-      </Routes>
-    </BrowserRouter>
+            <Route path="/profile/:username" element={<Profile />} />
+
+          </Routes>
+        </BrowserRouter>
+      )
+      :
+      (
+        <BrowserRouter>
+          <Routes>
+
+            <Route path="/" element={<Register />} />
+
+            <Route path="/login" element={<Login />} />
+
+            <Route path="/register" element={<Register />} />
+
+            <Route path="/profile/:username" element={<Profile />} />
+
+          </Routes>
+        </BrowserRouter>
+      )
+
+
   );
 }
 
