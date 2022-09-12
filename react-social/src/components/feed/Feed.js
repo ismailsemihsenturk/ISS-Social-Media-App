@@ -3,7 +3,6 @@ import "../../components/feed/Feed.css"
 import Post from '../post/Post'
 import Share from '../share/Share'
 import axios from "axios"
-import { useParams } from "react-router-dom";
 import { AuthContext } from '../../context/AuthContext'
 
 

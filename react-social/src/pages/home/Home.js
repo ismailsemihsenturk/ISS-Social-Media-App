@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Sidebar from '../../components/sidebar/Sidebar.js'
 import Topbar from '../../components/topbar/Topbar.js'
 import Rightbar from '../../components/rightbar/Rightbar.js'
@@ -14,7 +14,7 @@ function Home() {
       <div className='homeContainer'>
         <Sidebar />
         <Feed />
-        <Rightbar />
+        <Rightbar props={""} />
       </div>
     </>
   )

@@ -3,7 +3,6 @@ import Home from './pages/home/Home.js';
 import Login from './pages/login/Login.js';
 import Register from './pages/register/Register.js';
 import Profile from './pages/profile/Profile.js';
-import { render } from "react-dom";
 import {
   BrowserRouter,
   Routes,
@@ -21,26 +20,20 @@ function App() {
 
   const { user, dispatch } = useContext(AuthContext)
   const [token, setToken] = useState([]);
-  const [refresh, setRefresh] = useState(false);
+
 
   useEffect(() => {
     const currentToken = JSON.parse(localStorage.getItem("token"))
     setToken(currentToken);
-    setRefresh(true);
     console.log("token set")
-  }, [])
 
-
-  if (refresh) {
     if (localStorage.getItem("token") !== null) {
-      loginToken(JSON.stringify(token), dispatch)
-      console.log("user: " + JSON.stringify(user))
+      loginToken(dispatch)
     }
     else {
       console.log("undefined")
     }
-    setRefresh(!refresh)
-  }
+  }, [dispatch])
 
 
 

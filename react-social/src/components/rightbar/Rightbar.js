@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { Children, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "../../components/rightbar/Rightbar.css"
 import Online from '../online/Online'
 import { Users } from '../../dummyData';
@@ -21,33 +21,24 @@ function Rightbar({ props }) {
     // console.log("loc: " + window.location.pathname)
 
     const [friends, setFriends] = useState([])
-
-
-    // DANGEROUS: We  change the currentUser in the handleClick event and also this useEffect here. So when page pages first rendered this sets the value and then we clicked the button its sets value again then page rerendered and since we changed the currentuser in the handleClick event this useEffects works again and change the value again. DO NOT USE USEEFFECT IN THIS KIND OF SITUTATION INSTEAD USE AS USESTATE HOOKS DEFAULT VALUE
-    const [followed, setFollowed] = useState(currentUser?.followings.includes(props?._id));
-
-    // useEffect(() => {
-    //     setFollowed(currentUser.followings.includes(props._id))
-    // }, [currentUser, props._id])
-
+    const [followed, setFollowed] = useState(false);
 
     useEffect(() => {
-
-        // console.log("props dış: " + JSON.stringify(props, null, "\t"))
-        if (props !== undefined) {
-            // console.log("props iç: " + JSON.stringify(props, null, "\t"))
+        if (props.username !== undefined) {
             const fetchFriends = async () => {
                 const userFollowings = await axios.get(`users/friends?username=${props.username}`)
                 setFriends(userFollowings.data);
+
+                const followObj = currentUser?.followings.includes(props?._id)
+                setFollowed(followObj);
             }
             fetchFriends();
         }
 
-    }, [props])
+    }, [props.username, currentUser, props._id])
 
 
     const followHandler = async () => {
-
         try {
 
             if (followed) {
@@ -91,7 +82,6 @@ function Rightbar({ props }) {
 
 
     const ProfileRightbar = () => {
-
         return (
             <>
                 {

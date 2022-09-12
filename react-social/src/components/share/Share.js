@@ -17,7 +17,7 @@ function Share() {
     const textAreaHeightHandler = () => {
         textareaRef.current.style.height = "";
         textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight) + "px";
-        shareRef.current.style.height = Math.min(textareaRef.current.scrollHeight + 100) + "px";
+        // shareRef.current.style.height = Math.min(textareaRef.current.scrollHeight + 100) + "px";
     }
 
     const { user } = useContext(AuthContext);
@@ -33,6 +33,8 @@ function Share() {
         }
         if (file) {
             const data = new FormData();
+
+            const multiple = file.length === 1 ? false : true;
             Array.from(file).forEach(fileArray => {
 
                 const fileName = Date.now() + fileArray.name
@@ -46,6 +48,7 @@ function Share() {
                 newPost.img.push(fileName);
                 console.log("newPost " + JSON.stringify(newPost))
             })
+            data.append("multiple", multiple)
 
             // Upload file to the public/images
             try {

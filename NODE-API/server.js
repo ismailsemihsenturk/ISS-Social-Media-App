@@ -62,15 +62,23 @@ app.post("/api/upload", upload.array("files", 10), (req, res) => {
     // "files" indicates the key in the formData 
 
     try {
-        // console.log("body: " + JSON.stringify(req.body, null, "\t"))
-        for(let i =0; i< req.body.oldname.length; i++){
-            fs.rename(process.env.IMAGE_PATH + req.body.oldname[i], process.env.IMAGE_PATH + req.body.newname[i], function (err) {
+
+        console.log("multiple: " + req.body.multiple)
+
+        if (req.body.multiple === "true") {
+            console.log("multiple girdi")
+            for (let i = 0; i < req.body.oldname.length; i++) {
+                fs.rename(process.env.IMAGE_PATH + req.body.oldname[i], process.env.IMAGE_PATH + req.body.newname[i], function (err) {
+                    if (err) console.log('ERROR: ' + err);
+                });
+            }
+        }
+        if (req.body.multiple === "false") {
+            console.log("single girdi")
+            fs.rename(process.env.IMAGE_PATH + req.body.oldname, process.env.IMAGE_PATH + req.body.newname, function (err) {
                 if (err) console.log('ERROR: ' + err);
             });
         }
-       
-
-
         return res.status(200).json("Files uploaded succesfully")
     } catch (error) {
         console.log(error)
