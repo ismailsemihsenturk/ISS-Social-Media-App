@@ -12,3 +12,8 @@ export const loginCall = async (userCredentials, dispatch) => {
     }
 
 }
+
+export const loginToken = (token,dispatch) => {
+    dispatch({ type: "LOGIN_SUCCESS", payload: JSON.parse(token) });
+
+}

@@ -13,18 +13,35 @@ import {
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from './context/AuthContext';
 import Messenger from './pages/messenger/Messenger.js';
+import { loginToken } from "./apiCalls.js"
 
 
 
 function App() {
 
-  const { user } = useContext(AuthContext)
-  // console.log("app user: " + JSON.stringify(user, null, "\t"))
+  const { user, dispatch } = useContext(AuthContext)
   const [token, setToken] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
-  useEffect(() => { 
-    setToken(JSON.parse(localStorage.getItem("token")));
+  useEffect(() => {
+    const currentToken = JSON.parse(localStorage.getItem("token"))
+    setToken(currentToken);
+    setRefresh(true);
+    console.log("token set")
   }, [])
+
+
+  if (refresh) {
+    if (localStorage.getItem("token") !== null) {
+      loginToken(JSON.stringify(token), dispatch)
+      console.log("user: " + JSON.stringify(user))
+    }
+    else {
+      console.log("undefined")
+    }
+    setRefresh(!refresh)
+  }
+
 
 
 

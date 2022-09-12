@@ -24,8 +24,8 @@ function Rightbar({ props }) {
 
 
     // DANGEROUS: We  change the currentUser in the handleClick event and also this useEffect here. So when page pages first rendered this sets the value and then we clicked the button its sets value again then page rerendered and since we changed the currentuser in the handleClick event this useEffects works again and change the value again. DO NOT USE USEEFFECT IN THIS KIND OF SITUTATION INSTEAD USE AS USESTATE HOOKS DEFAULT VALUE
-    const followObj = currentUser?.followings.includes(props?._id);
-    const [followed, setFollowed] = useState(followObj);
+    const [followed, setFollowed] = useState(currentUser?.followings.includes(props?._id));
+
     // useEffect(() => {
     //     setFollowed(currentUser.followings.includes(props._id))
     // }, [currentUser, props._id])
