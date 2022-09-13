@@ -8,6 +8,8 @@ dotenv.config();
 import { router as userRoute } from "./routes/users.js"
 import { router as authRoute } from "./routes/auth.js"
 import { router as postRoute } from "./routes/posts.js"
+import { router as conversationRoute } from "./routes/conversations.js"
+import { router as messageRoutes } from "./routes/messages.js"
 import multer from "multer"
 import path from "path"
 import { fileURLToPath } from 'url';
@@ -16,7 +18,7 @@ import fs from "fs"
 
 const app = express();
 const port = process.env.PORT || 8800;
-const connection_url = `mongodb+srv://admin:${process.env.PASSWORD}@tinder-cluster.qy1vbqv.mongodb.net/test?retryWrites=true&w=majority`;
+const connection_url = process.env.MONGO_URL;
 
 mongoose.connect(connection_url, { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -34,6 +36,8 @@ app.use(morgan("common"))
 app.use("/api/users", userRoute)
 app.use("/api/auth", authRoute)
 app.use("/api/posts", postRoute)
+app.use("/api/conversations", conversationRoute)
+app.use("/api/messages", messageRoutes)
 
 
 // From Multer Docs
