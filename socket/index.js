@@ -10,10 +10,7 @@ io.listen(8900, {
 });
 
 io.on('connection', (socket) => {
-    let i = 0;
     console.log("a user connected " + i)
-    i++;
-    
     io.emit("welcome", "hello this is socket server!")
 
 });
