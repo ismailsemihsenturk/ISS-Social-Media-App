@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "../../pages/messenger/Messenger.css"
 import Topbar from "../../components/topbar/Topbar.js"
 import Conversation from '../../components/conversations/Conversation'
@@ -7,7 +7,7 @@ import ChatOnline from '../../components/chatOnline/ChatOnline'
 import { AuthContext } from '../../context/AuthContext'
 import axios from "axios"
 import ScrollToBottom from 'react-scroll-to-bottom';
-
+import { io } from "socket.io-client"
 
 
 function Messenger() {
@@ -16,7 +16,20 @@ function Messenger() {
     const [currentConversations, setCurrentConversations] = useState(null)
     const [messages, setMessages] = useState([])
     const [newMessage, setNewMessage] = useState("")
+    const [socket, setSocket] = useState(null)
     const { user } = useContext(AuthContext)
+
+
+    useEffect(() => {
+        console.log("socket set")
+        setSocket(io("ws://localhost:8900"))
+    }, [])
+
+    useEffect(() => {
+        socket?.on("welcome", message => {
+            console.log(message)
+        })
+    }, [socket])
 
 
     useEffect(() => {

@@ -1,0 +1,17 @@
+{
+  "name": "socket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "İsmail Semih Şentürk",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.19",
+    "socket.io": "^4.5.2"
+  }
+}
