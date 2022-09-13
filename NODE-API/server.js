@@ -46,18 +46,7 @@ const storage = multer.diskStorage({
         cb(null, "public/images");
     },
     filename: (req, file, cb) => {
-
-        // console.log("file önce: " + JSON.stringify(file))
-
-        // file.originalname = Date.now() + file.originalname;
-        // file.filename = file.originalname;
-        // file.path = "public\\images\\" + file.originalname;
-        // file.destination = "public/images"
-        // file.size = file.size
-
-        cb(null, file.originalname); // 
-
-        // console.log("file sonra: " + JSON.stringify(file))
+        cb(null, file.originalname); 
     },
 })
 
