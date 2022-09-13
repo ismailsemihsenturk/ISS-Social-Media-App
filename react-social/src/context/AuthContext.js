@@ -17,7 +17,8 @@ export const AuthContextProvider = ({ children }) => {
             user: state.user,
             isFetching: state.isFetching,
             error: state.error,
-            dispatch
+            dispatch,
+            state
         }}>
             {/* This children will be our application it can be app.js or whatever we want to wrap for our context api 
             To be able to use it we should use "useContext(AuthContext)" hook*/}

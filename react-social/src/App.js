@@ -20,39 +20,32 @@ function App() {
 
   const { user, dispatch } = useContext(AuthContext)
   const [token, setToken] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 
+  // Security aspects need to be improved.
   useEffect(() => {
-    const currentToken = JSON.parse(localStorage.getItem("token"))
-    setToken(currentToken);
-    console.log("token set")
-
-    if (localStorage.getItem("token") !== null) {
-      loginToken(dispatch)
-      setIsLoggedIn(true)
+    const tokenObj = JSON.parse(localStorage.getItem('token'));
+    if (tokenObj) {
+      setToken(tokenObj);
+      if (JSON.parse(localStorage.getItem('token')) !== null) {
+        loginToken(dispatch)
+      }
     }
-    else {
-      console.log("undefined")
-    }
-  }, [dispatch])
-
-  console.log(isLoggedIn)
-  console.log("object: " + isLoggedIn ? "aaa" : "bbb")
+  }, [dispatch]);
 
 
   return (
 
-    isLoggedIn ?
+    user ?
       (
         <BrowserRouter>
           <Routes>
 
             <Route path="/" element={<Home />} />
 
-            <Route path="/login" element={<Home />} />
+            <Route path="/login" element={<Navigate to="/" />} />
 
-            <Route path="/register" element={<Home />} />
+            <Route path="/register" element={<Navigate to="/" />} />
 
             <Route path="/messenger" element={<Messenger />} />
 

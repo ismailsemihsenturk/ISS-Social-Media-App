@@ -18,12 +18,8 @@ function Login() {
             email: emailRef.current.value,
             password: passwordRef.current.value
         }, dispatch)
-
-
+        
     }
-    // Because we have to click the button the set this event the first time there is no data if you write clg in the func inside you'll get "null" user state. You should call it outside the func. In that way when the comp rendered again it will clg the user state.
-    // console.log("user param içi: " + JSON.stringify(user, null, "\t"))
-
 
     return (
         <div className='login'>
@@ -53,7 +49,7 @@ function Login() {
                             <span className="loginForgot">Forgot Password?</span>
                         </form>
                         <Link to="/register" className="loginButton loginRegister" >
-                            <button className="loginButton loginRegister" style={{textAlign:"center",width:"100%"}} type='submit' disabled={isFetching}>{isFetching ? "Loading" : "Create a New Account"} </button>
+                            <button className="loginButton loginRegister" style={{ textAlign: "center", width: "100%" }} type='submit' disabled={isFetching}>{isFetching ? "Loading" : "Create a New Account"} </button>
                         </Link>
 
                     </div>
