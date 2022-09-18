@@ -22,5 +22,6 @@ export const loginToken = async (dispatch) => {
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
     } catch (error) {
         dispatch({ type: "LOGIN_FAILURE", payload: error });
+        localStorage.removeItem("token");
     }
 }
