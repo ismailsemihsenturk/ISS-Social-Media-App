@@ -4,16 +4,17 @@ import helmet from "helmet"
 import morgan from "morgan"
 import dotenv from "dotenv"
 import cors from "cors"
-dotenv.config();
+import jwt from "jsonwebtoken"
+import multer from "multer"
+import path from "path"
+import { fileURLToPath } from 'url';
+import fs from "fs"
 import { router as userRoute } from "./routes/users.js"
 import { router as authRoute } from "./routes/auth.js"
 import { router as postRoute } from "./routes/posts.js"
 import { router as conversationRoute } from "./routes/conversations.js"
 import { router as messageRoutes } from "./routes/messages.js"
-import multer from "multer"
-import path from "path"
-import { fileURLToPath } from 'url';
-import fs from "fs"
+dotenv.config();
 
 
 const app = express();
@@ -22,6 +23,7 @@ const connection_url = process.env.MONGO_URL;
 
 mongoose.connect(connection_url, { useNewUrlParser: true, useUnifiedTopology: true })
 
+// Otherwise you can't use "__dirname" or "__filename"
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -46,7 +48,7 @@ const storage = multer.diskStorage({
         cb(null, "public/images");
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname); 
+        cb(null, file.originalname);
     },
 })
 

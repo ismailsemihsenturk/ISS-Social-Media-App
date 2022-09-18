@@ -19,18 +19,13 @@ import { loginToken } from "./apiCalls.js"
 function App() {
 
   const { user, dispatch } = useContext(AuthContext)
-  const [token, setToken] = useState([]);
-
 
   // Security aspects need to be improved.
   useEffect(() => {
-    const tokenObj = JSON.parse(localStorage.getItem('token'));
-    if (tokenObj) {
-      setToken(tokenObj);
-      if (JSON.parse(localStorage.getItem('token')) !== null) {
-        loginToken(dispatch)
-      }
+    if (JSON.parse(localStorage.getItem('token')) !== null) {
+      loginToken(dispatch)
     }
+
   }, [dispatch]);
 
 
