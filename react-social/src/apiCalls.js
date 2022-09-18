@@ -18,7 +18,7 @@ export const loginToken = async (dispatch) => {
     dispatch({ type: "LOGIN_START" });
     try {
         const token = JSON.parse(localStorage.getItem("token"))
-        const res = await axios.post("auth/jwt", { acsessToken: token });
+        const res = await axios.post("auth/jwt", {}, { headers: { Authorization: 'Bearer ' + token } });
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
     } catch (error) {
         dispatch({ type: "LOGIN_FAILURE", payload: error });

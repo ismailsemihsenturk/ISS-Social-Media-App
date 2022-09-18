@@ -68,7 +68,10 @@ router.post("/login", async (req, res) => {
 router.post("/jwt", async (req, res) => {
 
     try {
-        const acsessToken = req.body.acsessToken;
+
+        const authHeader = req.headers.authorization;
+        const acsessToken = authHeader.split(" ")[1];
+
         const decodedToken = jwt.verify(acsessToken, process.env.JWT_SECRET);
 
         const user = await UserSchema.findById(decodedToken.id);
